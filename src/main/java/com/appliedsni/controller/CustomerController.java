@@ -27,28 +27,28 @@ public class CustomerController {
 
 
     @PostMapping("/customer")
-    public CustomerEntity createQuestion(@Valid @RequestBody CustomerEntity question) {
-        return customerRepository.save(question);
+    public CustomerEntity createQuestion(@Valid @RequestBody CustomerEntity customer) {
+        return customerRepository.save(customer);
     }
 
     @PutMapping("/customer/{id}")
-    public CustomerEntity updateQuestion(@PathVariable Long questionId,
-                                   @Valid @RequestBody CustomerEntity questionRequest) {
-        return customerRepository.findById(questionId)
-                .map(question -> {
-                    question.setTitle(questionRequest.getTitle());
-                    question.setDescription(questionRequest.getDescription());
-                    return customerRepository.save(question);
-                }).orElseThrow(() -> new ResourceNotFoundException("customer not found with id " + questionId));
+    public CustomerEntity updateQuestion(@PathVariable Long customerId,
+                                   @Valid @RequestBody CustomerEntity customerRequest) {
+        return customerRepository.findById(customerId)
+                .map(customer -> {
+                    customer.setTitle(customerRequest.getTitle());
+                    customer.setDescription(customerRequest.getDescription());
+                    return customerRepository.save(customer);
+                }).orElseThrow(() -> new ResourceNotFoundException("customer not found with id " + customerId));
     }
 
 
     @DeleteMapping("/customer/{id}")
-    public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
-        return customerRepository.findById(questionId)
-                .map(question -> {
-                	customerRepository.delete(question);
+    public ResponseEntity<?> deleteQuestion(@PathVariable Long customerId) {
+        return customerRepository.findById(customerId)
+                .map(customer -> {
+                	customerRepository.delete(customer);
                     return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new ResourceNotFoundException("customer not found with id " + questionId));
+                }).orElseThrow(() -> new ResourceNotFoundException("customer not found with id " + customerId));
     }
 }
