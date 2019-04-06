@@ -21,18 +21,18 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
     @GetMapping("/customer")
-    public Page<CustomerEntity> getQuestions(Pageable pageable) {
+    public Page<CustomerEntity> getCustomers(Pageable pageable) {
         return customerRepository.findAll(pageable);
     }
 
 
     @PostMapping("/customer")
-    public CustomerEntity createQuestion(@Valid @RequestBody CustomerEntity customer) {
+    public CustomerEntity createCustomer(@Valid @RequestBody CustomerEntity customer) {
         return customerRepository.save(customer);
     }
 
     @PutMapping("/customer/{id}")
-    public CustomerEntity updateQuestion(@PathVariable Long customerId,
+    public CustomerEntity updateCustomer(@PathVariable Long customerId,
                                    @Valid @RequestBody CustomerEntity customerRequest) {
         return customerRepository.findById(customerId)
                 .map(customer -> {
@@ -44,7 +44,7 @@ public class CustomerController {
 
 
     @DeleteMapping("/customer/{id}")
-    public ResponseEntity<?> deleteQuestion(@PathVariable Long customerId) {
+    public ResponseEntity<?> deleteCustomer(@PathVariable Long customerId) {
         return customerRepository.findById(customerId)
                 .map(customer -> {
                 	customerRepository.delete(customer);
